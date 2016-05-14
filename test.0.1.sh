@@ -67,7 +67,7 @@ dialog_choose_server () {
 ##	Добовляем ключик на сервер  
 add_ssh_key () {
 	    if [ "$check_sshdir_in_homedir_on_server" = "1" ]; then
-		usersshkey=`cat /root/users/$choice_user.key`
+		usersshkey=`sqlite3 users.db "select ssh_key from users where login='$choice_user' ;"`
 		ssh $server_ip "echo $usersshkey > /home/$choice_user/.ssh/authorized_keys"
 		ssh  $server_ip "chown $choice_user:$choice_user /home/$choice_user/.ssh/authorized_keys"
 		echo "Add key $choice_user  on $server_ip"
@@ -243,6 +243,10 @@ case $choice_action in
 	sqlite3 users.db "delete from users where login='$choice_user';"
     ;;
 
-
+    8)
+	dialog_choose_user
+	dialog_enter_sshkey
+	sqlite3 users.db "update users set ssh_key ='$sshkey_for_sqlite' where login='$choice_user';"
+    ;;
 
 esac 
