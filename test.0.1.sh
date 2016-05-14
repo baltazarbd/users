@@ -2,7 +2,7 @@
 
 #Global
 user_key_list=`sqlite3 users.db "select login from users;" |awk '{print $1  " User  off " }'|sort`
-server_list=`sqlite3 users.db "select * from  hosts"|awk  '{print $1,$2"off" }'|sed 's/|/ /'`
+server_list=`sqlite3 users.db "select * from  hosts"|sed 's/|/ /'|awk  '{print $1,$2" off" }'`
 
 
 #Dialog
