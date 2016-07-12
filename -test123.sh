@@ -1,8 +1,9 @@
 #!/bin/sh
+# Перенести в другую ветку
 M_HOST='localhost'
 M_USER='redmine'
 M_DB='redmine_default'
-M_PASS='a_igttnd'
+M_PASS='a1_5i2gt2t12nd24124'
 M_PARAMSTR="-h ${M_HOST} -u${M_USER} -p${M_PASS} -B $M_DB"
 
     for i in `echo "select users.id , groups_users.group_id  from users LEFT  JOIN groups_users  ON  users.id = groups_users.user_id" | mysql ${M_PARAMSTR}| tr -d "|" | grep NULL | cut -f 1`; do 
